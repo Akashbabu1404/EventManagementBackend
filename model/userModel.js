@@ -33,6 +33,16 @@ const userSchema=mongoose.Schema({
         match: /^[0-9]{10}$/,
         select:false
     },
+    image:{
+        public_id:{
+            type:String,
+            required:true
+        },
+        url:{
+            type:String,
+            required:true
+        }   
+    }
 },{
     toJSON: { virtuals: true },
     toObject: { virtuals: true }

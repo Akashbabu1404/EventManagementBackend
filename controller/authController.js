@@ -3,6 +3,7 @@ const catchAsync = require('../utils/catchAsync')
 const jwt = require('jsonwebtoken')
 const AppError = require('../utils/appError')
 const { promisify } = require('util')
+const cloudinary=require('../utils/cloudinary')
 
 
 const signToken = id => {
@@ -29,12 +30,21 @@ const createSendToken = (user, statusCode, res) => {
 
 
 exports.signUp = catchAsync(async (req, res, next) => {
+
+    const image=req.body.image;
+    const result = await cloudinary.uploader.upload(image, {
+        folder: "profilePhotos"
+    });
     const newUser = await User.create({
         userName: req.body.userName,
         email: req.body.email,
         password: req.body.password,
         phoneNumber: req.body.phoneNumber,
-        userType:req.body.userType
+        userType:req.body.userType,
+        image:{
+            public_id:result.public_id,
+            url:result.secure_url
+        }
     })
     createSendToken(newUser, 201, res)
 })
