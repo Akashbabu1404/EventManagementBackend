@@ -8,8 +8,11 @@ const globleErrorHandler=require('./controller/errorController')
 const dotenv=require('dotenv')
 dotenv.config({path:'./config.env'})
 
+
 const userRouter=require('./routes/userRoutes')
 const venueRouter=require('./routes/venueRoutes')
+const reviewRouter=require('./routes/reviewRoutes')
+const requestRouter=require('./routes/requestRoutes')
 
 const app=express()
 
@@ -24,6 +27,8 @@ if(process.env.NODE_ENV==='development'){
 
 app.use('/user',userRouter)
 app.use('/venue',venueRouter)
+app.use('/review',reviewRouter)
+app.use('/request',requestRouter)
 
 app.all('*',function(req,res,next){
     next(new AppError(`Can't find the ${req.originalUrl} on this server`))

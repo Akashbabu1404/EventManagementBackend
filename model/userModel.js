@@ -19,6 +19,7 @@ const userSchema=mongoose.Schema({
     },userType: {
         type: String,
         enum: ['admin', 'regular'],
+        default:'regular',
         required: true,
       },
     password:{
