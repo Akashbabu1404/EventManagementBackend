@@ -1,5 +1,6 @@
 const express=require('express')
 const venueController=require('../controller/venueController')
+const venueImageController=require('../controller/venueImageController')
 const authController=require('../controller/authController')
 
 const router=express.Router()
@@ -16,4 +17,9 @@ router
     .delete(venueController.deleteOneVenue)
     .patch(venueController.updateOneVenue)
 
+router
+    .route('/:venueId/i')
+    .post(venueImageController.postImage)
+    .get(venueImageController.getAllVenueImages)
+    
 module.exports=router

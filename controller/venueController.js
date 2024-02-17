@@ -1,6 +1,5 @@
 const Venue=require('../model/venueModel')
 const catchAsync = require('../utils/catchAsync')
-const cloudinary=require('../utils/cloudinary')
 
 
 exports.getAllVenues = catchAsync(async (req, res,next) => {
@@ -12,33 +11,9 @@ exports.getAllVenues = catchAsync(async (req, res,next) => {
     })
 })
 
-// async function uploadMultipleImages(images) {
-//     const uploadedImages = [];
-  
-//     for (const image of images) {
-//       try {
-//         const result = await cloudinary.uploader.upload(image, {
-//           folder: "venuePhotos" 
-//         });
-  
-//         uploadedImages.push({
-//             public_id:result.public_id,
-//             url:result.secure_url
-//         });
-//       } catch (error) {
-//         console.error(`Error uploading image ${image}:`, error);
-//       }
-//     }
-//     return uploadedImages;
-//   }
 
 exports.createVenue = catchAsync(async (req, res, next) => {
     const venueData = req.body;
-    // const images = req.body.images;
-    // console.log(images)
-
-    // const uploadedImages = await Promise.all(uploadMultipleImages(images));
-    // venueData.images = uploadedImages;
     await Venue.create(venueData);
     res.status(201).json({
         status: "success",
