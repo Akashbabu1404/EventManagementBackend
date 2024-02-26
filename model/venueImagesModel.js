@@ -13,7 +13,7 @@ const venueImages=mongoose.Schema({
         }   
     },
     venue: {
-        type: mongoose.Schema.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Venue',
         required: [true, 'review must belong to a venue'],
     },

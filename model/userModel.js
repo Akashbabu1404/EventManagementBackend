@@ -20,7 +20,6 @@ const userSchema=mongoose.Schema({
         type: String,
         enum: ['admin', 'regular'],
         default:'regular',
-        required: true,
       },
     password:{
         type:String,
@@ -28,19 +27,16 @@ const userSchema=mongoose.Schema({
         minlength: 8, //set minimum lenght to 8 
         select: false  // didn't send when use to fetch details
     },
-    phoneNumber:{
+    mobile:{
         type:String,
         match: /^[0-9]{10}$/,
-        select:false
     },
     image:{
         public_id:{
             type:String,
-            required:true
         },
         url:{
             type:String,
-            required:true
         }   
     }
 },{

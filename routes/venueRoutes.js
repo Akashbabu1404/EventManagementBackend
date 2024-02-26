@@ -8,18 +8,18 @@ const router=express.Router()
 
 //need to add autication
 router.get('/',venueController.getAllVenues)
-router.post('/cv',venueController.createVenue)
+router.post('/cv',authController.protect,authController.restrictTo('admin'),venueController.createVenue)
 
 
 router
     .route('/:id')
     .get(venueController.getOneVenue)
-    .delete(venueController.deleteOneVenue)
-    .patch(venueController.updateOneVenue)
+    .delete(authController.protect,authController.restrictTo('admin'),venueController.deleteOneVenue)
+    .patch(authController.protect,authController.restrictTo('admin'),venueController.updateOneVenue)
 
 router
     .route('/:venueId/i')
-    .post(venueImageController.postImage)
+    .post(authController.protect,venueImageController.postImage)
     .get(venueImageController.getAllVenueImages)
     
 module.exports=router

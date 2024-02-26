@@ -22,14 +22,11 @@ const requestSchema=new mongoose.Schema({
     name:{
         type:String
     },
-    phoneNumber:{
+    mobileNumber:{
         type:String,
         match: /^[0-9]{10}$/
     },
     email:{
-        type:String
-    },
-    typeOfplaceRequired:{
         type:String
     }
 })

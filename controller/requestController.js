@@ -15,7 +15,7 @@ exports.getAllRequests= catchAsync(async (req, res, next) => {
 
 exports.createRequest = catchAsync(async (req, res, next) => {
     const data = req.body;
-    await Request.create(data);
+    await Request.create(data.data);
     res.status(201).json({
         status: "success",
         data: null

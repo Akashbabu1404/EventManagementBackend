@@ -24,27 +24,28 @@ const createSendToken = (user, statusCode, res) => {
 
     res.status(statusCode).json({
         status: "success",
-        token
+        token,
+        user
+
     })
 }
 
 
 exports.signUp = catchAsync(async (req, res, next) => {
 
-    const image=req.body.image;
-    const result = await cloudinary.uploader.upload(image, {
-        folder: "profilePhotos"
-    });
+    // const image=req.body.image;
+    // const result = await cloudinary.uploader.upload(image, {
+    //     folder: "profilePhotos"
+    // });
     const newUser = await User.create({
         userName: req.body.userName,
         email: req.body.email,
         password: req.body.password,
-        phoneNumber: req.body.phoneNumber,
-        userType:req.body.userType,
-        image:{
-            public_id:result.public_id,
-            url:result.secure_url
-        }
+        mobile: req.body.mobile,
+        // image:{
+        //     public_id:result.public_id,
+        //     url:result.secure_url
+        // }
     })
     createSendToken(newUser, 201, res)
 })

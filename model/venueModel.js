@@ -5,29 +5,21 @@ const venueSchema=mongoose.Schema({
         type:String,
         required: [true, 'Please provide venue name']
     },
-    feature:{
-        type:String,
-        enum:['premium']
-    },
     state:{
         type:String,
         required:[true, 'Please provide state name']
     },
     city:{
         type:String,
-        required:[true, 'Please provide city name']
+        required:[true, 'Please provide city']
     },
     address:{
         type:String,
-        required:[true, 'Please provide address name']
-    },
-    minCapacity:{
-        type:Number,
-        required:[true, 'Please provide minCapacity name']
+        required:[true, 'Please provide address']
     },
     maxCapacity:{
         type:Number,
-        required:[true, 'Please provide maxCapacity name']
+        required:[true, 'Please provide maxCapacity']
     },
     ratingsAverage: {
         type: Number,
@@ -38,46 +30,18 @@ const venueSchema=mongoose.Schema({
     },
     propertyType:{
         type:String,
-        enum:['garden','hotel','pool','hall','confress hall']
+        enum:['hotel','garden','pool','hall','confress hall','other']
     },
     description:{
         type:String,
     },
-    food:{
-        type:String,
-    },
-    capacity:{
-        type:String,
-    },
-    servicesOffered:{
-        type:String,
-    },
-    accessibility:{
-        type:String,
-    },
-    facilites:{
-        type:String,
-    },
-    pouplarFor:{
-        type:String,
-        required:[true, 'Please provide the event name for which you are famous']
-    },
-    eventSupported: {
-        type: [String], 
-        default: [] 
-      },
-    cuisines: {
-        type: [String], 
-        default: [] 
-      },
-     facilites: {
-        type: [String], 
-        default: [] 
-      },
-      noOfHalls:{
+      numberOfHalls:{
         type:Number
       },
-      noOfRooms:{
+      numberOfRooms:{
+        type:Number
+      },
+      numberOfGardens:{
         type:Number
       },
       refundPolicy:{
@@ -87,6 +51,28 @@ const venueSchema=mongoose.Schema({
 },{
     toJSON: { virtuals: true },
     toObject: { virtuals: true }
+})
+
+venueSchema.virtual('venueImages',{
+    ref:'VenueImages',
+    foreignField:'venue',
+    localField:'_id'
+})
+
+venueSchema.virtual('reviews',{
+    ref:'Review',
+    foreignField:'venue',
+    localField:'_id'
+})
+
+venueSchema.pre(/^find/, function (next) {
+    this.populate({
+        path:'venueImages',
+    })
+    this.populate({
+        path:'reviews'
+    })
+    next()
 })
 
 const Venue=mongoose.model('Venue',venueSchema)
