@@ -10,7 +10,7 @@ mongoose.connect(DB).then(
     console.log('connected succesfully'),
 ).catch((err) => {
     if(process.env.NODE_ENV==='production'){
-        console.log("error in connecting the database")
+        console.log("error in connecting the database",err)
     }else{
         console.log("error in connecting the database",err)
     }
